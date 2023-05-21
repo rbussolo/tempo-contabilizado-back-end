@@ -1,0 +1,14 @@
+-- Tempo Contabilizado
+
+--- Cronograma
+
+1. Criação do usuário
+  [ ] Criação da estrutura de usuário
+  [ ] Criação da migração (yarn typeorm migration)
+  [ ] Criação do serviço de novo usuário
+  [ ] Criação do serviço de validação de e-mail do usuário
+  [ ] Criação do serviço de esqueci a senha
+
+2. Acesso do usuário
+  [ ] Criação do serviço de autenticação
+
