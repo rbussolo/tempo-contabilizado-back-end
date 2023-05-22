@@ -1,7 +1,7 @@
 {
-  "name": "portal-emal-backend",
+  "name": "tempo-contabilizado-backend",
   "version": "1.0.0",
-  "description": "Controle do backend do portal",
+  "description": "Controle do tempo gasto em cada atividade - Backend",
   "main": "server.ts",
   "author": "Rodrigo Bussolo",
   "license": "MIT",
