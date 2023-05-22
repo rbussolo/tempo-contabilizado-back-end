@@ -28,7 +28,7 @@ export class ResetCheckService {
     }
 
     const repoUser = AppDataSource.getRepository(User);
-    const user = await repoUser.findOne({ where: { id: decoded.user_id }, select: ["cpf_cnpj", "name", "email"]});
+    const user = await repoUser.findOne({ where: { id: decoded.user_id }, select: ["name", "email"]});
 
     if(!user) {
       return new AppError("Usuário não foi encontrado!");
