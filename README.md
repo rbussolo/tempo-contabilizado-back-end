@@ -8,13 +8,13 @@ O sistema é util para quem quer contabilizar tudo que faz no dia a dia de uma m
 
 ### Funcionalidades
 
-[ ] Cadastro de novos usuários pelo e-mail
-[ ] Ativação de novos usuários pelo e-mail
-[ ] Autenticação de usuário
-[ ] Recuperação de senha
-[ ] Inicio de uma nova atividade
-[ ] Finalização de uma atividade em curso
-[ ] Criação de relatórios
+- [ ] Cadastro de novos usuários pelo e-mail
+- [ ] Ativação de novos usuários pelo e-mail
+- [ ] Autenticação de usuário
+- [ ] Recuperação de senha
+- [ ] Inicio de uma nova atividade
+- [ ] Finalização de uma atividade em curso
+- [ ] Criação de relatórios
 
 ### Instalação
 
