@@ -13,13 +13,11 @@ interface CreateUserRequest {
   email: string;
   password: string;
   name: string;
-  cpf_cnpj: string;
-  cellphone?: string;
   type?: string;
 }
 
 export class CreateUserService {
-  async execute({ email, password, name, cpf_cnpj, cellphone, type }: CreateUserRequest): Promise<User | AppError | PasswordError>{
+  async execute({ email, password, name, type }: CreateUserRequest): Promise<User | AppError | PasswordError>{
     // Check everything that is necessary has informed
     if (!email) {
       return new AppError("É necessário informar o E-mail!");
@@ -27,12 +25,8 @@ export class CreateUserService {
       return new AppError("É necessário informar a Senha!");
     } else if (!name) {
       return new AppError("É necessário informar o Nome!");
-    } else if (!cpf_cnpj) {
-      return new AppError("É necessário informar o CPF/CNPJ!");
     } else if (!validEmail(email)) {
       return new AppError("O E-mail informado é inválido!");
-    } else if (!validCpfCnpj(cpf_cnpj)) {
-      return new AppError("O CPF/CNPJ informado é inválido!");
     } 
     
     const passwordValid = validPassword(password);
@@ -57,8 +51,6 @@ export class CreateUserService {
       email: email.toLowerCase(),
       password: passwordHash,
       name: name.toUpperCase(),
-      cpf_cnpj: removeMaskCpfCnpj(cpf_cnpj),
-      cellphone,
       type
     });
 
