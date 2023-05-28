@@ -12,8 +12,12 @@ export class ListUserService {
   async execute({ page, amount, name, email, type }): Promise<Users> {
     const pagination = validPagination({ page, amount });
     const repo = AppDataSource.getRepository(User);
-
-    let query = repo.createQueryBuilder("users").select("users.id").addSelect("users.name").addSelect("users.email").addSelect("users.cpf_cnpj").addSelect("users.type").addSelect("users.cellphone");
+    
+    let query = repo.createQueryBuilder("users")
+      .select("users.id")
+      .addSelect("users.name")
+      .addSelect("users.email")
+      .addSelect("users.type");
 
     if(name) {
       query = query.andWhere("users.name like :name", { name: `${name.toUpperCase()}%` });
@@ -30,7 +34,7 @@ export class ListUserService {
     query = query.orderBy("users.id");
     query = query.offset(pagination.offset);
     query = query.limit(pagination.amount);
-
+    
     const users = await query.getMany();
     const count = await query.getCount();
 

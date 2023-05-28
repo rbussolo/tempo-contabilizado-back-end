@@ -4,8 +4,6 @@ import { AppError } from '../../../../errors/AppError';
 import { AppDataSource } from "../../../../data-source";
 import { User } from "../../entities/User";
 import { validEmail } from '../../../../utils/ValidEmail';
-import { validCpfCnpj } from "../../../../utils/ValidCpfCnpj";
-import { removeMaskCpfCnpj } from "../../../../utils/RemoveMaskCpfCnpj";
 import { validPassword } from "../../../../utils/ValidPassword";
 import { PasswordError } from "../../../../errors/PasswordError";
 

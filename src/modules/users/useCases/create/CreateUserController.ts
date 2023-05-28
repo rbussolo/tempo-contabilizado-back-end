@@ -8,8 +8,6 @@ export class CreateUserController {
   async handle(request: Request, response: Response){
     const { email, password, name, type } = request.body;
 
-    console.log({ email, password, name, type })
-
     const service = new CreateUserService();
     const result = await service.execute({ email, password, name, type });
 

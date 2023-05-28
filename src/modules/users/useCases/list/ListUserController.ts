@@ -5,7 +5,7 @@ import { ListUserService } from './ListUserService';
 export class ListUserController {
   async handle(request: Request, response: Response){
     const { page, amount, name, email, type } = request.query;
-
+    
     const service = new ListUserService();
     const result = await service.execute({ page, amount, name, email, type });
 

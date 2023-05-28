@@ -4,7 +4,7 @@ import { Auth } from "../modules/auth/Auth";
 
 export async function ensuredAuthenticad(request: Request, response: Response, next: NextFunction){
   const authHeader = request.headers.authorization;
-
+  
   if (!authHeader) {
     return response.status(401).json({ message: "Token missing" });
   }
@@ -12,7 +12,7 @@ export async function ensuredAuthenticad(request: Request, response: Response, n
   const [, token] = authHeader.split(" ");
 
   const result = Auth.validAccessToken(token);
-
+  
   if (result instanceof AppError) {
     return response.status(result.statusCode).json({ code: result.code, message: result.message });
   }

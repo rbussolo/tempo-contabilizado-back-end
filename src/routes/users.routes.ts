@@ -16,7 +16,7 @@ const listUserController = new ListUserController();
 const updateUserController = new UpdateUserController();
 const deleteUserController = new DeleteUserController();
 
-usersRoutes.post("/", ensuredAuthenticad, wrap(createUserController.handle));
+usersRoutes.post("/", wrap(createUserController.handle));
 usersRoutes.get("/:id", ensuredAuthenticad, wrap(getUserByIdController.handle));
 usersRoutes.get("/", ensuredAuthenticad, wrap(listUserController.handle));
 usersRoutes.put("/:id", ensuredAuthenticad, wrap(updateUserController.handle));
