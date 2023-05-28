@@ -26,7 +26,7 @@ export class ListUserService {
     if (email) {
       query = query.andWhere("users.email like :email", { email: `${email.toLowerCase() }%` });
     }
-
+    
     if (type) {
       query = query.andWhere("users.type = :type", { type });
     }
