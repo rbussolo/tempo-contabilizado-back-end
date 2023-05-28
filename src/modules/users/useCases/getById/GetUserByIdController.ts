@@ -5,7 +5,7 @@ import { GetUserByIdService } from "./GetUserByIdService";
 export class GetUserByIdController {
   async handle(request: Request, response: Response) {
     const id: number = +request.params.id;
-
+    
     const service = new GetUserByIdService();
     const result = await service.execute(id);
 
