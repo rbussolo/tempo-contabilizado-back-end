@@ -35,7 +35,6 @@ interface DecodedResetPassword {
 const KEY_ACCESS_TOKEN = "24176e3fc59c20fba3764d244f7f7324";
 const KEY_REFRESH_TOKEN = "5AUZo0jaoziuUsZTBzC3on2Z5Lzt9tFv";
 const KEY_RESET_PASSWORD_TOKEN = "xKtWDf5mqRUc3Xa0TzncppiHpobHPdog";
-const KEY_MIGRATE_USER_TOKEN = "RVXA1qf8nPZIXbTkqKCHpTLjFgk7Ys5y";
 
 function decodToken(token: string, key_token: string, name_token: string) {
   if (!token) {
