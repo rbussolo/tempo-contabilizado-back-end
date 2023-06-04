@@ -9,18 +9,22 @@ function queryParamToInt(queryParam: any): number {
 }
 
 // Format convert (yyyy-mm-dd)
-function queryParamToDate(queryParam: any): Date | undefined {
-  const result = Date.parse(queryParam as string);
+function queryParamToDate(queryParam: any): Date | null {
+  const result = new Date(queryParam);
 
-  if (isNaN(result)) {
-    return undefined;
-  }
-
-  return new Date(result);
+  return result;
 }
 
 function queryParamToBoolean(queryParam: any): boolean {
   return queryParam == 'true';
 }
 
-export { queryParamToInt, queryParamToDate, queryParamToBoolean };
+function dateToWhereCondition(date: Date): string {
+  const day = date.getDate().toString().padStart(2, "0");
+  const month = date.getMonth().toString().padStart(2, "0");
+  const year = date.getFullYear().toString();
+
+  return `to_date("${day + month + year}","ddmmyyyy")`;
+}
+
+export { queryParamToInt, queryParamToDate, queryParamToBoolean, dateToWhereCondition };
