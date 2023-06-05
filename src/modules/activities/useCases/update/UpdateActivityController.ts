@@ -1,15 +1,16 @@
 import { Request, Response } from 'express';
 import { AppError } from '../../../../errors/AppError';
 
-import { DeleteActivityService } from './DeleteActivityService';
+import { UpdateActivityService } from './UpdateActivityService';
 
-export class DeleteActivityController {
+export class UpdateActivityController {
   async handle(request: Request, response: Response){
     const id: number = +request.params.id;
+    const { description, date, startTime, stopTime, tags } = request.body;
     const user_id = request.user.id;
     
-    const service = new DeleteActivityService();
-    const result = await service.execute({ user_id, id });
+    const service = new UpdateActivityService();
+    const result = await service.execute({ user_id, id, description, date, startTime, stopTime, tags });
     
     if (result instanceof AppError) {
       return response.status(result.statusCode).json({ message: result.message });

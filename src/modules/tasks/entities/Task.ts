@@ -1,10 +1,14 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, ManyToOne, JoinColumn } from "typeorm";
 import { TaskStats } from "./TaskStats";
+import { Activity } from "../../activities/entities/Activity";
 
 @Entity("tasks")
 export class Task {
   @PrimaryGeneratedColumn()
   id: number;
+
+  @Column()
+  activity_id: number;
 
   @Column()
   description: string;
@@ -25,6 +29,10 @@ export class Task {
     nullable: true
   })
   stats: string;
+
+  @ManyToOne(() => Activity)
+  @JoinColumn({ name: "activity_id" })
+  activity: Activity;
 
   @CreateDateColumn()
   created_at: string;

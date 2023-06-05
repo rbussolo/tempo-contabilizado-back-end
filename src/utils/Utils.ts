@@ -26,6 +26,7 @@ function getHoursAndMinutes(time: string) {
 
 function getTagsInArray(text: string): string[] {
   text = text.trim();
+  text = text.replaceAll(","," ");
 
   return text ? text.split(" ") : [];
 }
