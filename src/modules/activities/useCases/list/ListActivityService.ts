@@ -45,8 +45,6 @@ export class ListActivityService {
     const activities = await query.getMany();
     const count = await query.getCount();
 
-    console.log(activities)
-
     return { activities, count };
   }
 }

@@ -1,6 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn } from "typeorm";
 import { ActivityStats } from "./ActivityStats";
-import { type } from "os";
 
 @Entity("activities")
 export class Activity {
@@ -15,8 +14,8 @@ export class Activity {
       from(value: string): Date {
         return new Date(value)
       },
-      to(value: string): string {
-        return value
+      to(value: Date): string {
+        return value.toISOString().substring(0,10)
       }
     } })
   date: string;

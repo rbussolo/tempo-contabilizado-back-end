@@ -8,17 +8,13 @@ interface IUpdateUser {
   id: number;
   name: string;
   email?: string;
-  cpf_cnpj: string;
-  cellphone: string;
   type: string;
 }
 
 export class UpdateUserService {
-  async execute({ id, email, name, cpf_cnpj, cellphone, type }: IUpdateUser): Promise<IUpdateUser | AppError> {
+  async execute({ id, email, name, type }: IUpdateUser): Promise<IUpdateUser | AppError> {
     if (!id) {
       return new AppError("É necessário informar o Id do usuário!");
-    } else if(cpf_cnpj && !validCpfCnpj(cpf_cnpj)) {
-      return new AppError("O CPF/CNPJ informado é inválido!");
     }
 
     const repo = AppDataSource.getRepository(User);
@@ -29,8 +25,6 @@ export class UpdateUserService {
     }
 
     user.name = name ? name.toUpperCase() : user.name;
-    user.cpf_cnpj = cpf_cnpj ? removeMaskCpfCnpj(cpf_cnpj) : user.cpf_cnpj;
-    user.cellphone = cellphone ? cellphone : user.cellphone;
     user.email = email ? email : user.email;
     user.type = type ? type : user.type;
 
@@ -40,8 +34,6 @@ export class UpdateUserService {
       id: user.id,
       name: user.name,
       email: user.email,
-      cpf_cnpj: user.cpf_cnpj,
-      cellphone: user.cellphone,
       type: user.type
     }
 
