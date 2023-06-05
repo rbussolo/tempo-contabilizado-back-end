@@ -4,19 +4,19 @@ import { Activity } from "../../entities/Activity";
 import { ActivityStats } from "../../entities/ActivityStats";
 import { getDuration, getTagsInArray } from "../../../../utils/Utils";
 
-interface StartActivityRequest {
+interface DeleteActivityRequest {
   user_id: number;
-  id: number
+  id: number;
 }
 
-export class StartActivityService {
-  async execute({ user_id, id }: StartActivityRequest): Promise<AppError | null>{
+export class DeleteActivityService {
+  async execute({ user_id, id }: DeleteActivityRequest): Promise<AppError | null>{
     if (!user_id) {
-      return new AppError("É necessário informar o ID do Usuário!");
+      return new AppError("É necessário informar o Id do Usuário!");
     } else if (!id) {
-      return new AppError("É necessário informar o ID da Atividade!");
+      return new AppError("É necessário informar o Id da Atividade!");
     }
-
+    
     const repo = AppDataSource.getRepository(Activity);
     const activity = await repo.findOne({ where: { id, user_id } });
 
@@ -24,10 +24,6 @@ export class StartActivityService {
       return new AppError("Atividade não localizada!");
     }
 
-    activity.stats = ActivityStats.InProgress;
-    activity.duration = 0;
-    activity.stopTime = "";
-
-    await repo.save(activity);
+    const result = await repo.delete(id);
   }
 }

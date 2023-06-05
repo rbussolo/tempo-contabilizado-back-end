@@ -5,6 +5,7 @@ import { ActivityStats } from "../../entities/ActivityStats";
 import { getDuration, getTagsInArray } from "../../../../utils/Utils";
 
 interface CreateActivityRequest {
+  user_id: number;
   description: string;
   date: Date;
   startTime: string;
@@ -13,9 +14,10 @@ interface CreateActivityRequest {
 }
 
 export class CreateActivityService {
-  async execute({ description, date, startTime, stopTime, tags }: CreateActivityRequest): Promise<AppError | null>{
-    // Check everything that is necessary has informed
-    if (!description) {
+  async execute({ user_id, description, date, startTime, stopTime, tags }: CreateActivityRequest): Promise<AppError | null>{
+    if (!user_id) {
+      return new AppError("É necessário informar o Id do Usuário!");
+    } else if (!description) {
       return new AppError("É necessário informar a Descrição!");
     } else if (!date) {
       return new AppError("É necessário informar a Data!");
@@ -34,6 +36,7 @@ export class CreateActivityService {
 
     const repo = AppDataSource.getRepository(Activity);
     const activity = repo.create({
+      user_id,
       description,
       date,
       startTime,

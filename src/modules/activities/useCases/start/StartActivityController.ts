@@ -7,9 +7,10 @@ import { StartActivityService } from './StartActivityService';
 export class StartActivityController {
   async handle(request: Request, response: Response) {
     const { id } = request.body.data;
+    const user_id = request.user.id;
 
     const service = new StartActivityService();
-    const result = await service.execute({ id });
+    const result = await service.execute({ user_id, id });
 
     if (result instanceof AppError) {
       return response.status(result.statusCode).json({ message: result.message });

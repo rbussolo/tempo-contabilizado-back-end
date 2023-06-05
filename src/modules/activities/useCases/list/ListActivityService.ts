@@ -1,5 +1,5 @@
 import { AppDataSource } from "../../../../data-source";
-import { dateToWhereCondition, queryParamToDate } from "../../../../utils/QueryParams";
+import { queryParamToDate } from "../../../../utils/QueryParams";
 import { Activity } from "../../entities/Activity";
 
 interface Activities {
@@ -8,7 +8,7 @@ interface Activities {
 }
 
 export class ListActivityService {
-  async execute({ date, month, year }): Promise<Activities> {
+  async execute({ user_id, date, month, year }): Promise<Activities> {
     const repo = AppDataSource.getRepository(Activity);
     const d = queryParamToDate(date);
 
@@ -21,6 +21,8 @@ export class ListActivityService {
       .addSelect("activities.duration")
       .addSelect("activities.stats")
       .addSelect("activities.tags");
+
+    query.andWhere("user_id = :user_id", { user_id });
 
     if (date && d) {
       const day = d.getDate();

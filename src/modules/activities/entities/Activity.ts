@@ -1,10 +1,14 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, ManyToOne, JoinColumn } from "typeorm";
 import { ActivityStats } from "./ActivityStats";
+import { User } from "../../users/entities/User";
 
 @Entity("activities")
 export class Activity {
   @PrimaryGeneratedColumn()
   id: number;
+
+  @Column()
+  user_id: number;
 
   @Column()
   description: string;
@@ -39,6 +43,10 @@ export class Activity {
 
   @Column({ type: "text", array: true, default: [] })
   tags: string[];
+
+  @ManyToOne(() => User)
+  @JoinColumn({ name: "user_id" })
+  user: User;
 
   @CreateDateColumn()
   created_at: string;
