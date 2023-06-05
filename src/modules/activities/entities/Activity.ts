@@ -14,11 +14,11 @@ export class Activity {
       from(value: string): Date {
         return new Date(value)
       },
-      to(value: Date): string {
-        return value.toISOString().substring(0,10)
+      to(value: Date | string): string {
+        return typeof value === 'string' ? value : value.toISOString().substring(0,10)
       }
     } })
-  date: string;
+  date: string | Date;
 
   @Column({ nullable: true })
   startTime: string;

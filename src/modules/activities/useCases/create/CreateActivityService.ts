@@ -35,7 +35,7 @@ export class CreateActivityService {
     const repo = AppDataSource.getRepository(Activity);
     const activity = repo.create({
       description,
-      date: date.toISOString(),
+      date,
       startTime,
       stopTime,
       duration,
