@@ -10,7 +10,7 @@ export const AppDataSource = new DataSource({
   database: "tempo",
   synchronize: true,
   logging: false,
-  entities: ["src/modules/users/entities/*.ts", "src/modules/emails/entities/*.ts", "src/modules/tokens/entities/*.ts", "src/modules/activities/entities/*.ts"],
+  entities: ["src/modules/users/entities/*.ts", "src/modules/emails/entities/*.ts", "src/modules/tokens/entities/*.ts", "src/modules/activities/entities/*.ts", "src/modules/tasks/entities/*.ts"],
   migrations: ["src/database/migrations/*.ts"],
   subscribers: [],
 });
