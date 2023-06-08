@@ -1,6 +1,7 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, ManyToOne, JoinColumn } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, ManyToOne, JoinColumn, OneToMany } from "typeorm";
 import { ActivityStats } from "./ActivityStats";
 import { User } from "../../users/entities/User";
+import { Task } from "../../tasks/entities/Task";
 
 @Entity("activities")
 export class Activity {
@@ -47,6 +48,9 @@ export class Activity {
   @ManyToOne(() => User)
   @JoinColumn({ name: "user_id" })
   user: User;
+
+  @OneToMany(type => Task, task => task.activity)
+  tasks: Task[];
 
   @CreateDateColumn()
   created_at: string;

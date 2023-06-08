@@ -1,3 +1,4 @@
+import { Between, LessThanOrEqual, MoreThanOrEqual } from "typeorm";
 import { AppDataSource } from "../../../../data-source";
 import { queryParamToDate } from "../../../../utils/QueryParams";
 import { Activity } from "../../entities/Activity";
@@ -8,10 +9,22 @@ interface Activities {
 }
 
 export class ListActivityService {
-  async execute({ user_id, date, month, year }): Promise<Activities> {
+  async execute({ user_id, date, date_initial, date_final }): Promise<Activities> {
     const repo = AppDataSource.getRepository(Activity);
-    const d = queryParamToDate(date);
+    
+    if (date) {
+      const activities = await repo.find({ where: { user_id, date }, relations: ['tasks'], order: { startTime: "DESC" } });
+      const count = activities.length;
 
+      return { activities, count };
+    }
+
+    const activities = await repo.find({ where: { user_id, date: Between(date_initial, date_final) }, relations: ['tasks'], order: { date: "ASC", startTime: "DESC" } });
+    const count = activities.length;
+
+    return { activities, count };
+    
+    /*
     let query = repo.createQueryBuilder("activities")
       .select("activities.id")
       .addSelect("activities.description")
@@ -48,5 +61,6 @@ export class ListActivityService {
     const count = await query.getCount();
 
     return { activities, count };
+    */
   }
 }

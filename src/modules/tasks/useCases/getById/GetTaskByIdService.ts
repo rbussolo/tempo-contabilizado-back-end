@@ -10,8 +10,8 @@ interface GetTaskByIdRequest {
 export class GetTaskByIdService {
   async execute({ user_id, id }: GetTaskByIdRequest): Promise<Task | AppError> {
     const repo = AppDataSource.getRepository(Task);
-    const task = await repo.findOne({ where: { id } });
-
+    const task = await repo.findOne({ where: { id }, relations: ['activity'] });
+    
     if (!task || task.activity.user_id != user_id) {
       return new AppError("Tarefa não localizada!");
     }

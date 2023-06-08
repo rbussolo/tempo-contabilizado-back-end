@@ -33,7 +33,7 @@ export class UpdateTaskService {
     const stats = duration > 0 ? TaskStats.Finished : TaskStats.InProgress;
     
     const repo = AppDataSource.getRepository(Task);
-    const task = await repo.findOne({ where: { id } });
+    const task = await repo.findOne({ where: { id }, relations: ['activity'] });
 
     if (!task || task.activity.user_id !== user_id) {
       return new AppError("Tarefa não localizada!");
