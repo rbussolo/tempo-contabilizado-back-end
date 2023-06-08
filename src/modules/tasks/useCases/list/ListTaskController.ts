@@ -4,7 +4,7 @@ import { ListTaskService } from './ListTaskService';
 
 export class ListTaskController {
   async handle(request: Request, response: Response){
-    const activity_id = +request.params.activity_id;
+    const { activity_id } = request.query;
     const user_id = request.user.id;
     
     const service = new ListTaskService();
