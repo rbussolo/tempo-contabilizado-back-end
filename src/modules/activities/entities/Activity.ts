@@ -2,6 +2,7 @@ import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, ManyToOne, Jo
 import { ActivityStats } from "./ActivityStats";
 import { User } from "../../users/entities/User";
 import { Task } from "../../tasks/entities/Task";
+import { Calendar } from "../../calendar/entities/Calendar";
 
 @Entity("activities")
 export class Activity {
@@ -10,6 +11,9 @@ export class Activity {
 
   @Column()
   user_id: number;
+
+  @Column({ nullable: true })
+  calendar_id: number;
 
   @Column()
   description: string;
@@ -48,6 +52,10 @@ export class Activity {
   @ManyToOne(() => User)
   @JoinColumn({ name: "user_id" })
   user: User;
+
+  @ManyToOne(() => Calendar)
+  @JoinColumn({ name: "calendar_id" })
+  calendar: Calendar;
 
   @OneToMany(type => Task, task => task.activity)
   tasks: Task[];
