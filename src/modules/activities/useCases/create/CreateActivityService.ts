@@ -3,6 +3,8 @@ import { AppDataSource } from "../../../../data-source";
 import { Activity } from "../../entities/Activity";
 import { ActivityStats } from "../../entities/ActivityStats";
 import { getDuration, getTagsInArray } from "../../../../utils/Utils";
+import { GetCalendarByDateService } from '../../../calendar/useCases/getByDate/GetCalendarByDateService';
+import { UpdateCalendarService } from '../../../calendar/useCases/update/UpdateCalendarService';
 
 interface CreateActivityRequest {
   user_id: number;
@@ -30,7 +32,10 @@ export class CreateActivityService {
     if (duration < 0) {
       return new AppError("O horário do termino deve ser maior que o horário inicial!");
     }
-    
+
+    const getCalendarByDateService = new GetCalendarByDateService();
+    const calendar = await getCalendarByDateService.execute({ user_id, date });
+
     const stats = duration > 0 ? ActivityStats.Finished : ActivityStats.InProgress;
     const tagsInArray = getTagsInArray(tags);
 
@@ -43,9 +48,13 @@ export class CreateActivityService {
       stopTime,
       duration,
       stats,
-      tags: tagsInArray
+      tags: tagsInArray,
+      calendar_id: calendar.id
     });
     
     await repo.save(activity);
+
+    const updateCalendarService = new UpdateCalendarService();
+    await updateCalendarService.execute({ id: calendar.id });
   }
 }

@@ -3,6 +3,7 @@ import { AppDataSource } from "../../../../data-source";
 import { Activity } from "../../entities/Activity";
 import { ActivityStats } from "../../entities/ActivityStats";
 import { getDuration, getTagsInArray } from "../../../../utils/Utils";
+import { UpdateCalendarService } from '../../../calendar/useCases/update/UpdateCalendarService';
 
 interface StartActivityRequest {
   user_id: number;
@@ -29,5 +30,8 @@ export class StartActivityService {
     activity.stopTime = "";
 
     await repo.save(activity);
+
+    const updateCalendarService = new UpdateCalendarService();
+    await updateCalendarService.execute({ id: activity.calendar_id });
   }
 }
